@@ -1,0 +1,17 @@
+{
+  "name": "classwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd ./client && npm run start",
+    "server": "cd ./server && npm run start",
+    "start":"concurrently \"npm run client\" \"npm run server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
