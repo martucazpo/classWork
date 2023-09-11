@@ -1,3 +1,7 @@
 import library from "./lib/index.js"
 
-library.render()
+//library.render()
+document.createElement("div", {is:"test-component"})
+
+
+export default library

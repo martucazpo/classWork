@@ -1,12 +1,12 @@
-import component from "../global/index.js"
-let { state } = component
+import Component from "../global/index.js"
 
-class Test extends HTMLDivElement{
+
+class Test extends Component{
     constructor(){
         super()
         this.h1 = document.createElement("h1")
-        this.h1.innerText = state.happy ? "Hello Word" : "Go away!"
-        this.append(this.h1)
+        this.h1.innerText = this.state.happy ? "Hello Word" : "Go away!"
+        this.render(this.h1)
     }
 }
 
