@@ -65,7 +65,7 @@ class Page {
             isLogin: true,
             modalOpen: false
         })
-        this.postData("http://127.0.0.1:8000/auth/logout").then(data => console.log(data))
+        this.postData("http://localhost:8000/auth/logout").then(data => console.log(data))
         this.render()
         return this
     }

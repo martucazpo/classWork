@@ -76,7 +76,7 @@ class Login{
     }
     handleRegister(e) {
         e.preventDefault()
-        this.postData("http://127.0.0.1:8000/auth/register", { data: this.state }).then((data) => this.processData(data));
+        this.postData("http://localhost:8000/auth/register", { data: this.state }).then((data) => this.processData(data));
         this.setState({
             ...this.state,
             firstName: "",
@@ -102,7 +102,7 @@ class Login{
     // }
     handleLogin(e) {
         e.preventDefault()
-        this.postData("http://127.0.0.1:8000/auth/login", { data: this.state }).then((data) => this.processData(data));
+        this.postData("http://localhost:8000/auth/login", { data: this.state }).then((data) => this.processData(data));
         this.setState({
             ...this.state,
             email: "",

@@ -12,7 +12,7 @@ class List extends HTMLUListElement {
     }
     connectedCallback() {
         this.innerHTML = ""
-        this.postData("http://127.0.0.1:8000/todo/getall", { data: { _id: state.user._id } })
+        this.postData("http://localhost:8000/todo/getall", { data: { _id: state.user._id } })
             .then(data => {
                 this.setState({
                     ...this.state,
