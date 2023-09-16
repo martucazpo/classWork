@@ -1,7 +1,9 @@
 import library from "./lib/index.js"
 
-//library.render()
-document.createElement("div", {is:"test-component"})
+const { component } = library
 
+let page = document.createElement("landing-page")
+
+component.render(page)
 
 export default library
