@@ -1,9 +1,8 @@
 import library from "./lib/index.js"
 
-const { component } = library
+const { module } = library
 
-let page = document.createElement("landing-page")
+module.keepLoggedOn()
 
-component.render(page)
 
 export default library

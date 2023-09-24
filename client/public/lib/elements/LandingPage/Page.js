@@ -1,33 +1,28 @@
-import component from "../../module/index.js"
-import state from "../../module/state.js"
-let { setState, postData, render } = component
+import module from "../../module/index.js"
+import store from "../../state/store.js"
+let { handleLogout, handleModalOpen, keepLoggedOn } = module
 
 class Page {
     constructor(elem) {
-        this.state = state
-        this.setState = setState
-        this.render = render
-        this.postData = postData
         this.elem = elem
-        this.handleClick = this.handleClick.bind(this)
-        this.handleLogout = this.handleLogout.bind(this)
-        this.logoutForm = this.logoutForm.bind(this)
+        this.handleLogout = handleLogout
+        this.handleModalOpen = handleModalOpen
         const nav = document.createElement("div", { is: "nav-component" })
         const loginBtn = document.createElement("button")
         loginBtn.innerText = "LOGIN"
-        loginBtn.addEventListener("click", this.handleClick)
+        loginBtn.addEventListener("click", this.handleModalOpen)
         const modal = document.createElement("dialog", { is: "modal-component" })
         const projectLogin = document.createElement("div", { is: "project-login" })
         modal.append(projectLogin)
-        const logoutButton = document.createElement("button")
-        logoutButton.innerText = "Logout"
-        logoutButton.addEventListener("click", this.handleLogout)
-        if (!this.state.isAuth && !this.state.modalOpen) {
+        const logoutForm = document.createElement("form", { is: "form-comp" })
+        logoutForm.setAttribute("btn-text", "LOGOUT")
+        logoutForm.addEventListener("submit", this.handleLogout)
+        if (!store.getState().isAuth && !store.getState().modalOpen) {
             nav.append(loginBtn)
-        } else if (!this.state.isAuth && this.state.modalOpen) {
+        } else if (!store.getState().isAuth && store.getState().modalOpen) {
             nav.append(modal)
         } else {
-            nav.append(logoutButton)
+            nav.append(logoutForm)
         }
         this.elem.append(nav)
         const main = document.createElement("main")
@@ -35,44 +30,19 @@ class Page {
         main.style.margin = 0
         main.style.width = "100vw"
         main.style.minHeight = "80vh"
-        main.style.backgroundColor = this.state.isAuth ? "lime" : "orchid"
+        main.style.backgroundColor = store.getState().isAuth ? "lime" : "orchid"
         const authh1 = document.createElement("h1")
         authh1.style.margin = 0
         authh1.style.padding = 0
-        authh1.innerText = !this.state.isAuth ? "NOT Authorized - YET." : "Authorized!"
+        authh1.innerText = !store.getState().isAuth ? "NOT Authorized - YET." : "Authorized!"
         nav.append(main)
         main.append(authh1)
-        if (this.state.isAuth) {
+        if (store.getState().isAuth) {
             const todoApp = document.createElement("div", { is: "todo-element" })
             main.append(todoApp)
         }
         this.elem.append(main)
         return this.elem
-    }
-    handleClick() {
-        this.setState({
-            ...this.state,
-            isLogin: true,
-            modalOpen: true
-        })
-        this.render()
-        return this
-    }
-    handleLogout() {
-        this.setState({
-            ...this.state,
-            isAuth: false,
-            isLogin: true,
-            modalOpen: false
-        })
-        this.postData("http://localhost:8000/auth/logout").then(data => console.log(data))
-        this.render()
-        return this
-    }
-    logoutForm() {
-        const form = document.createElement("form", { is: "form-comp" })
-        form.setAttribute("btn-text", "LOGOUT")
-        form.addEventListener("submit", this.handleLogout)
     }
 }
 

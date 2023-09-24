@@ -1,11 +1,14 @@
+import store from "../state/store.js"
+import { handleInput } from "../state/actions.js"
+
 class Input extends HTMLDivElement{
     constructor(){
         super()
+        this.handleInput = handleInput
         this.label = document.createElement("label")
         this.input = document.createElement("input")
         this.append(this.label)
         this.append(this.input)
-        //this.handleInput = this.handleInput.bind(this)
     }
     connectedCallback(){
         let name = this.getAttribute("name")
@@ -18,8 +21,8 @@ class Input extends HTMLDivElement{
         this.input.setAttribute("type", type)
         this.input.setAttribute("id", name)
         this.input.required = required
-        //this.input.value = this.state[name]
-        //this.input.addEventListener("input", (e)=>this.handleInput(e))
+        this.input.value = store.getState()[name]
+        this.input.addEventListener("input", (e)=>store.dispatch(handleInput(e)))
     }
 }
 

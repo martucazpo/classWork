@@ -2,6 +2,14 @@ const { User } = require("../db/models")
 const bcrypt = require("bcryptjs")
 
 module.exports = {
+    checkAuth: async (req, res, next)=>{
+        if(req.app.locals.auth.status){
+            req._id = req.app.locals.auth.user._id
+            next()
+        }else{
+            res.send(false)
+        }
+    },
     register: async (req, res) => {
         let { password1, password2, firstName, lastName, email } = req.body.data
         if (password1 !== password2) {

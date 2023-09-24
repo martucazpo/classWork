@@ -1,4 +1,4 @@
-const state = {
+const initialState = {
     isAuth: false,
     user: {},
     modalOpen: false,
@@ -12,8 +12,7 @@ const state = {
     task: "",
     editTask: "",
     editTodoId: "",
-    todos: [],
-    isTodoEdit: false
+    isTodoEdit: false,
 }
 
-export default state
+export default initialState

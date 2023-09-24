@@ -1,15 +1,10 @@
-
-import component from "../module/index.js"
-import state from "../module/state.js"
-let { setState, render } = component
+import module from "../module/index.js"
+let { handleModalClose } = module
 
 class Modal extends HTMLDialogElement {
     constructor() {
         super()
-        this.render = render
-        this.state = state
-        this.setState = setState
-        this.handleClick = this.handleClick.bind(this)
+        this.handleModalClose = handleModalClose
         this.style.position = "absolute"
         this.style.zIndex = 5
         this.style.top = "50%"
@@ -19,19 +14,11 @@ class Modal extends HTMLDialogElement {
         this.style.height = "fit-content"
         this.closeBtn = document.createElement("button")
         this.closeBtn.innerText = "X"
-        this.closeBtn.addEventListener("click", this.handleClick)
+        this.closeBtn.addEventListener("click", this.handleModalClose)
         this.append(this.closeBtn)
         Array.from(this.children).forEach(child => this.append(child))
         this.show()
         return this
-    }
-    handleClick() {
-        this.setState({
-            ...this.state,
-            modalOpen: false
-        })
-        this.close()
-        render()
     }
 }
 

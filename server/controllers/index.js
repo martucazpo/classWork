@@ -5,6 +5,10 @@ module.exports = {
     login: authControllers.login,
     register: authControllers.register,
     logout: authControllers.logout,
+    checkauth: authControllers.checkAuth,
     addtodo: todoControllers.addTodo,
-    getalltodos: todoControllers.getAllTodos
+    getalltodos: todoControllers.getAllTodos,
+    deletetodo: todoControllers.deleteTodo,
+    edittodo: todoControllers.editTodo,
+    checkall: todoControllers.getGetAll
 }

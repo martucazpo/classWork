@@ -1,5 +1,5 @@
-import Component from "./Component.js"
+import Module from "./Module.js"
 
-let component = new Component()
+let module = new Module()
 
-export default component
+export default module
