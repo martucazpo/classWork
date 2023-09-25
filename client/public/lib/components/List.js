@@ -1,6 +1,6 @@
 import store from "../state/store.js"
 import module from "../module/index.js"
-const { handleDelete, handleEdit, getAllTasks, getReadyToEdit } = module
+const { handleDelete, handleEdit, getAllTasks, getReadyToEdit, createCustomElement } = module
 
 class List extends HTMLUListElement {
     constructor() {
@@ -9,6 +9,7 @@ class List extends HTMLUListElement {
         this.handleDelete = handleDelete
         this.handleEdit = handleEdit
         this.getReadyToEdit = getReadyToEdit
+        this.createCustomElement = createCustomElement
         this.makeList = this.makeList.bind(this)
         this.style.listStyle = "none"
     }
@@ -20,26 +21,18 @@ class List extends HTMLUListElement {
         store.getState().user.todos.forEach(todo => {
             let li = document.createElement("li")
             if (store.getState().isTodoEdit && todo._id === store.getState().editTodoId) {
-                let form = document.createElement("form", { is: "form-comp" })
-                form.setAttribute("btn-text", "CHANGE!")
-                form.addEventListener("submit", this.handleEdit)
-                let taskInput = document.createElement("div", { is: "input-comp" })
-                taskInput.setAttribute("name", "editTask")
-                taskInput.setAttribute("type", "text")
-                taskInput.setAttribute("required", "true")
-                taskInput.setAttribute("label-txt", "Task to Change: ")
+                let form = this.createCustomElement("form", { is: "form-comp" }, { "btn-text": "CHANGE!" }, { "submit": this.handleEdit })
+                let taskInput = this.createCustomElement("div", { is: "input-comp" }, { "name": "editTask" }, { "type": "text" }, { "required": true }, { "label-txt": "Task to change: " })
                 form.append(taskInput)
                 li.append(form)
             } else {
                 li.innerText = todo.task
                 let btnDiv = document.createElement("div")
-                let deleteBtn = document.createElement("button")
+                let deleteBtn = this.createCustomElement("button", null, { "click": this.handleDelete, "option": todo })
                 deleteBtn.innerText = "DONE!"
-                deleteBtn.addEventListener('click', () => this.handleDelete(todo))
                 btnDiv.append(deleteBtn)
-                let editBtn = document.createElement("button")
+                let editBtn = this.createCustomElement("button", null, { "click": this.getReadyToEdit, "option": todo })
                 editBtn.innerText = "EDIT!"
-                editBtn.addEventListener("click", () => this.getReadyToEdit(todo))
                 btnDiv.append(editBtn)
                 li.append(btnDiv)
             }

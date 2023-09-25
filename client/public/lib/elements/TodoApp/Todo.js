@@ -1,33 +1,18 @@
-import module from "../../module/index.js"
-const { addTasks } = module
+import Module from "../../module/Module.js"
 
-class Todo {
+class Todo extends Module{
     constructor(elem) {
+        super()
         this.elem = elem
-        this.addTasks = addTasks
-        this.addTodoForm = this.addTodoForm.bind(this)
-    }
-    addTodoForm() {
-        let todoForm = document.createElement("form", { is: "form-comp" })
-        todoForm.setAttribute("btn-text", "ADD A TASK!")
-        todoForm.addEventListener("submit", this.addTasks)
-        let taskInput = document.createElement("div", { is: "input-comp" })
-        taskInput.setAttribute("name", "task")
-        taskInput.setAttribute("type", "text")
-        taskInput.setAttribute("required", true)
-        taskInput.setAttribute("label-txt", "Task to add: ")
-        todoForm.append(taskInput)
-        return todoForm
-    }
-    localRender() {
         this.elem.innerHTML = ""
         const wrapper = document.createElement("div")
-        let form = this.addTodoForm()
+        let todoForm = this.createCustomElement("form", "form-comp", { "btn-text": "ADD A TASK!" }, { "submit": this.addTasks })
+        let taskInput = this.createCustomElement("div", "input-comp", { "name": "task" }, { "type": "text" }, { "required": true }, { "label-txt": "Task to Add" })
+        todoForm.append(taskInput)
         let list = document.createElement("ul", { is: "todo-list" })
-        wrapper.append(form)
+        wrapper.append(todoForm)
         wrapper.append(list)
         this.elem.append(wrapper)
-        return this
     }
 }
 

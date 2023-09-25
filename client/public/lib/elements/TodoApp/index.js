@@ -5,7 +5,7 @@ class TodoElement extends HTMLDivElement{
     constructor(){
         super()
         this.attachShadow({mode: "open"})
-        new Todo(this.shadowRoot).localRender()
+        new Todo(this.shadowRoot)
     }
 }
 

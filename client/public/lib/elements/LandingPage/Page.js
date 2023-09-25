@@ -1,12 +1,10 @@
-import module from "../../module/index.js"
+import Module from "../../module/Module.js"
 import store from "../../state/store.js"
-let { handleLogout, handleModalOpen, keepLoggedOn } = module
 
-class Page {
+class Page extends Module{
     constructor(elem) {
+        super()
         this.elem = elem
-        this.handleLogout = handleLogout
-        this.handleModalOpen = handleModalOpen
         const nav = document.createElement("div", { is: "nav-component" })
         const loginBtn = document.createElement("button")
         loginBtn.innerText = "LOGIN"

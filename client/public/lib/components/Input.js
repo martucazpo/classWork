@@ -1,5 +1,5 @@
 import store from "../state/store.js"
-import { handleInput } from "../state/actions.js"
+import * as actions from "../state/actions.js"
 
 class Input extends HTMLDivElement{
     constructor(){
@@ -22,7 +22,7 @@ class Input extends HTMLDivElement{
         this.input.setAttribute("id", name)
         this.input.required = required
         this.input.value = store.getState()[name]
-        this.input.addEventListener("input", (e)=>store.dispatch(handleInput(e)))
+        this.input.addEventListener("input", (e)=>store.dispatch(actions.default.handleInput(e)))
     }
 }
 
